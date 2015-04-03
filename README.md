@@ -1,6 +1,6 @@
 ## yek
 
-Yek is key spelt backwards. It changes ["one", "two", "three"] to one[two][three] and back. It is a simple library and does stresses on consistency to and fro. I know there are other libaries but they tend to have too much magic. It's a bracket notation. There will never be dot notation.
+Yek is key spelt backwards. It changes ["one", "two", "three"] to one[two][three] and back. It is a simple library and does stresses on consistency to and fro. It's a bracket notation and is not customizable to be dot notation.
 
 [![Build Status](https://travis-ci.org/kahwee/yek.svg?branch=master)](https://travis-ci.org/kahwee/yek) [![Coverage Status](https://coveralls.io/repos/kahwee/yek/badge.svg?branch=master)](https://coveralls.io/r/kahwee/yek?branch=master) [![npm version](https://badge.fury.io/js/yek.svg)](http://badge.fury.io/js/yek)
 
@@ -8,12 +8,12 @@ Yek is key spelt backwards. It changes ["one", "two", "three"] to one[two][three
 
 ```js
 var atos = require('yek/atos');
-atos(["one", "two", "three"]);
+atos(['one', 'two, 'three']);
 // returns one[two][three]
 
 var stoa = require('yek/stoa');
-stoa("one[two][three]");
-// returns ["one", "two", "three"]
+stoa('one[two][three]');
+// returns ['one', 'two, 'three']
 ```
 
 ## Usage
