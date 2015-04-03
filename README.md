@@ -8,12 +8,12 @@ Yek is key spelt backwards. It changes ["one", "two", "three"] to one[two][three
 
 ```js
 var atos = require('yek/atos');
-atos(['one', 'two, 'three']);
+atos(['one', 'two', 'three']);
 // returns one[two][three]
 
 var stoa = require('yek/stoa');
 stoa('one[two][three]');
-// returns ['one', 'two, 'three']
+// returns ['one', 'two', 'three']
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ npm install --save yek
 
 ```js
 var atos = require('yek/atos');
-atos(["one", "two", "three"]);
+atos(['one', 'two', 'three']);
 // returns one[two][three]
 ```
 
@@ -35,8 +35,8 @@ atos(["one", "two", "three"]);
 
 ```js
 var stoa = require('yek/stoa');
-stoa("one[two][three]");
-// returns ["one", "two", "three"]
+stoa('one[two][three]');
+// returns ['one', 'two', 'three']
 ```
 
 ## License
