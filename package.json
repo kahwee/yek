@@ -1,0 +1,22 @@
+{
+  "name": "yek",
+  "version": "1.0.0",
+  "description": "Generates a key path from arrays and back again.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kahwee/yek.git"
+  },
+  "keywords": [
+    "keypath", "notation", "bracket", "array"
+  ],
+  "author": "KahWee Teng <t@kw.sg> (http://kw.sg/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kahwee/yek/issues"
+  },
+  "homepage": "https://github.com/kahwee/yek"
+}
