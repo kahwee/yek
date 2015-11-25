@@ -1,0 +1,7 @@
+{
+  "ignore": [
+    "**/dist/**",
+    "**/coverage/**",
+    "**/node_modules/**"
+  ]
+}
