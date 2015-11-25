@@ -1,4 +1,4 @@
 module.exports = {
-	atos: require('./atos'),
-	stoa: require('./stoa')
-};
+  atos: require('./atos'),
+  stoa: require('./stoa')
+}

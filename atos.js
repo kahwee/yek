@@ -6,12 +6,12 @@
  * @param  {[type]} pathInArray [description]
  * @return {[type]}             [description]
  */
-module.exports = function(pathInArray) {
-	return pathInArray.reduce(function(previousValue, currentValue, index, array) {
-		if (!index) {
-			return currentValue;
-		} else {
-			return previousValue + '[' + currentValue + ']';
-		}
-	});
-};
+module.exports = function (pathInArray) {
+  return pathInArray.reduce(function (previousValue, currentValue, index, array) {
+    if (!index) {
+      return currentValue
+    } else {
+      return previousValue + '[' + currentValue + ']'
+    }
+  })
+}
