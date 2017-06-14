@@ -7,7 +7,7 @@
  * @return {[type]}           [description]
  */
 module.exports = function (pathInStr) {
-  return pathInStr.split(/[\[\]]+/).filter(function (segment) {
+  return pathInStr.split(/[[\]]+/).filter(function (segment) {
     return segment
   })
 }

@@ -1,10 +1,10 @@
 {
   "name": "yek",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Generates a key path from arrays and back again.",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint *.js test",
+    "lint": "standard",
     "test": "mocha",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
@@ -18,6 +18,20 @@
     "bracket",
     "array"
   ],
+  "standard": {
+    "ignore": [
+      "/dist",
+      "/coverage",
+      "/reports"
+    ],
+    "env": [
+      "mocha"
+    ],
+    "globals": [
+      "MouseEvent",
+      "expect"
+    ]
+  },
   "author": "KahWee Teng <t@kw.sg> (http://kw.sg/)",
   "license": "MIT",
   "bugs": {
@@ -25,12 +39,10 @@
   },
   "homepage": "https://github.com/kahwee/yek",
   "devDependencies": {
-    "chai": "^4.0.0",
-    "coveralls": "^2.11.2",
-    "eslint": "^3.19.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-standard": "^3.0.1",
-    "istanbul": "^0.4.1",
-    "mocha": "^3.4.2"
+    "chai": "^4.0.2",
+    "coveralls": "^2.13.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.2",
+    "standard": "^10.0.2"
   }
 }
