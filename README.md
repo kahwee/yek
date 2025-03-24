@@ -10,7 +10,7 @@ Yek is key spelt backwards. It changes arrays like `["one", "two", "three"]` to 
 - Tree-shakable
 - Simple and intuitive API
 
-[![Build Status](https://travis-ci.org/kahwee/yek.svg?branch=master)](https://travis-ci.org/kahwee/yek) [![Coverage Status](https://coveralls.io/repos/kahwee/yek/badge.svg?branch=master)](https://coveralls.io/r/kahwee/yek?branch=master) [![npm version](https://badge.fury.io/js/yek.svg)](http://badge.fury.io/js/yek)
+[![Build Status](https://travis-ci.org/kahwee/yek.svg?branch=main)](https://travis-ci.org/kahwee/yek) [![Coverage Status](https://coveralls.io/repos/kahwee/yek/badge.svg?branch=main)](https://coveralls.io/r/kahwee/yek?branch=main) [![npm version](https://badge.fury.io/js/yek.svg)](http://badge.fury.io/js/yek)
 [![bitHound Score](https://www.bithound.io/github/kahwee/yek/badges/score.svg)](https://www.bithound.io/github/kahwee/yek)
 
 ## Example use cases
