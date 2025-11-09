@@ -14,6 +14,6 @@ export default function stoa (pathInStr: string): string[] {
   if (!pathInStr) {
     return []
   }
-  
-  return pathInStr.split(/[[\]]+/).filter(segment => segment)
+
+  return pathInStr.split(/[[\]]+/).filter(Boolean)
 }

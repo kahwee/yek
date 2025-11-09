@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest'
 import { stoa } from '../src/index.js'
 
 describe('stoa (String to Array)', () => {
