@@ -1,54 +1,45 @@
-## yek
+# yek
 
-Yek is key spelt backwards. It changes arrays like `["one", "two", "three"]` to bracket notation strings like `one[two][three]` and back again. It provides a simple, consistent way to convert between these formats.
+Convert arrays of path segments to bracket notation and back. ESM-only, with
+TypeScript declarations and no runtime dependencies.
 
-**Features:**
-- Written in TypeScript with full type definitions
-- Zero runtime dependencies
-- ES modules support
-- 100% test coverage
-- Tree-shakable
-- Simple and intuitive API
-
-[![CI](https://github.com/kahwee/yek/actions/workflows/ci.yml/badge.svg)](https://github.com/kahwee/yek/actions/workflows/ci.yml) [![Coverage Status](https://coveralls.io/repos/github/kahwee/yek/badge.svg?branch=main)](https://coveralls.io/github/kahwee/yek?branch=main) [![npm version](https://badge.fury.io/js/yek.svg)](https://badge.fury.io/js/yek)
-
-## Example use cases
-
-```ts
-// TypeScript/ESM
-import { atos, stoa } from 'yek';
-
-atos(['one', 'two', 'three']);
-// returns one[two][three]
-
-stoa('one[two][three]');
-// returns ['one', 'two', 'three']
-```
-
-## Usage
-Install from `npm`.
+## Install
 
 ```sh
-npm install --save yek
+npm install yek
 ```
 
-### Changing Array to String (atos)
+## Use
 
 ```ts
-// TypeScript
-import { atos } from 'yek';
-atos(['one', 'two', 'three']);
-// returns one[two][three]
+import { atos, stoa } from 'yek'
+
+atos(['one', 'two', 'three']) // 'one[two][three]'
+stoa('one[two][three]')      // ['one', 'two', 'three']
 ```
 
-### Changing String to Array (stoa)
+`atos` joins an array into a path; `stoa` splits a path into segments. See the
+[implementation](src/index.ts) and [behavior tests](tests/) for edge cases.
 
-```ts
-// TypeScript
-import { stoa } from 'yek';
-stoa('one[two][three]');
-// returns ['one', 'two', 'three']
+## Development
+
+Use the Node version selected by CI (26) and the committed npm lockfile:
+
+```sh
+npm ci
+npm run check
+npm run coverage
+npm run build
 ```
+
+`check` runs types, lint, and tests. Coverage reports statements, functions,
+lines, and branches separately; branch coverage is not 100%.
+
+The current checkout emits `dist/src/index.js`, while package.json points to
+`dist/index.js`. Source exports are present, but package self-import from a fresh
+build fails until that packaging mismatch is fixed. Do not treat a successful
+TypeScript build as package loading verification.
+[CLAUDE.md](CLAUDE.md) contains contributor guidance.
 
 ## License
 

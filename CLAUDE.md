@@ -1,43 +1,14 @@
-# CLAUDE.md - Guidelines for Yek Repository
+# Repository guidance
 
-## Commands
+`yek` exports named ESM functions `atos` and `stoa` through `src/index.ts`.
+Preserve their bracket-notation behavior and TypeScript declarations.
 
-| Command | Description |
-|---------|-------------|
-| `npm install` | Install dependencies |
-| `npm run build` | Build TypeScript to JavaScript |
-| `npm run typecheck` | Check TypeScript types |
-| `npm test` | Run all tests |
-| `npm run test:watch` | Run tests in watch mode |
-| `npm run coverage` | Generate test coverage report |
-| `npm run lint` | Run ESLint |
-| `npm run lint:fix` | Fix linting issues automatically |
-| `npm run check` | Run typecheck, lint, and tests |
-| `npx vitest run tests/stoa.test.ts` | Run a specific test file |
-
-## Git Workflow
-
-1. Create a feature branch from `main`: `git checkout -b feature/your-feature-name`
-2. Make changes and commit with conventional commit format:
-   - `feat: add new feature`
-   - `fix: fix bug description`
-   - `docs: update documentation`
-   - `test: add tests`
-   - `refactor: refactor code`
-3. Run `npm run check` to ensure all checks pass
-4. Push your branch and create a pull request
-5. GitHub Actions CI will test your changes
-6. After approval, merge to `main`
-
-## Code Style Guidelines
-
-- TypeScript with strict mode enabled
-- No semicolons
-- Single quotes for strings
-- 2 space indentation (enforced by ESLint)
-- ES modules (import/export)
-- Arrow functions preferred
-- Vitest for testing
-- TSDoc comments with @param and @return
-- Type annotations for function parameters and returns
-- Tests use Vitest assertions
+- Use npm and `package-lock.json`; install with `npm ci`. CI uses Node 26.
+- Run `npm run check`, `npm run coverage`, and `npm run build` for source or
+  dependency changes. `check` runs typecheck, lint, and Vitest tests.
+- Match the repository's strict TypeScript and ESLint configuration. Keep
+  tests in `tests/`; focused tests use `npx vitest run tests/stoa.test.ts`.
+- Check examples against the built named exports and the package entry path.
+  The current build emits dist/src while package.json expects dist/index.js;
+  resolve that mismatch before publishing. Do not claim 100% branch
+  coverage or add CommonJS usage without implementing that export.
