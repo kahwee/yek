@@ -35,10 +35,8 @@ npm run build
 `check` runs types, lint, and tests. Coverage reports statements, functions,
 lines, and branches separately; branch coverage is not 100%.
 
-The current checkout emits `dist/src/index.js`, while package.json points to
-`dist/index.js`. Source exports are present, but package self-import from a fresh
-build fails until that packaging mismatch is fixed. Do not treat a successful
-TypeScript build as package loading verification.
+`build` emits `dist/index.js` and its declaration. Run `npm run test:package`
+after building to check the package entry and named exports.
 [CLAUDE.md](CLAUDE.md) contains contributor guidance.
 
 ## License

@@ -1,3 +1,8 @@
+## v3.0.0 (unreleased)
+
+- Emit the declared package entry directly under `dist/` and keep test artifacts out of the build.
+- Verify named package imports after building in CI.
+
 ## v2.0.1 -- 2015-11-25
 * Updates for dependencies
 

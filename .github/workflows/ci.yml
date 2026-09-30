@@ -28,3 +28,4 @@ jobs:
       - run: npm run coverage
       - name: Build
         run: npm run build
+      - run: npm run test:package

@@ -9,6 +9,5 @@ Preserve their bracket-notation behavior and TypeScript declarations.
 - Match the repository's strict TypeScript and ESLint configuration. Keep
   tests in `tests/`; focused tests use `npx vitest run tests/stoa.test.ts`.
 - Check examples against the built named exports and the package entry path.
-  The current build emits dist/src while package.json expects dist/index.js;
-  resolve that mismatch before publishing. Do not claim 100% branch
-  coverage or add CommonJS usage without implementing that export.
+  Run `npm run test:package` after building to verify the package entry.
+  Do not claim 100% branch coverage or add CommonJS usage without implementing it.
