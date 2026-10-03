@@ -26,7 +26,6 @@ describe('stoa (String to Array)', () => {
 
   it('should handle malformed bracket notation correctly', () => {
     expect(stoa('a[b')).toEqual(['a', 'b'])
-    // The current implementation splits on ][, so we need to adjust our expectation
     expect(stoa('a]b[c')).toEqual(['a', 'b', 'c'])
     expect(stoa('a[[b]]c')).toEqual(['a', 'b', 'c'])
   })

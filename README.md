@@ -18,8 +18,20 @@ atos(['one', 'two', 'three']) // 'one[two][three]'
 stoa('one[two][three]')      // ['one', 'two', 'three']
 ```
 
-`atos` joins an array into a path; `stoa` splits a path into segments. See the
-[implementation](src/index.ts) and [behavior tests](tests/) for edge cases.
+`atos` accepts mutable or readonly arrays and throws for an empty array.
+`stoa('')` returns `[]`.
+
+Conversion round-trips when segments are nonempty and contain neither `[` nor
+`]`. There is no escaping: `stoa` splits on either bracket, discards empty
+segments, and accepts malformed notation. For example:
+
+```ts
+stoa(atos(['a', '', 'b'])) // ['a', 'b']
+stoa(atos(['a[b]', 'c'])) // ['a', 'b', 'c']
+stoa('a[b')              // ['a', 'b']
+```
+
+See the [behavior tests](tests/) for more examples.
 
 ## Development
 
@@ -36,7 +48,8 @@ npm run build
 lines, and branches separately; branch coverage is not 100%.
 
 `build` emits `dist/index.js` and its declaration. Run `npm run test:package`
-after building to check the package entry and named exports.
+after building to pack and install the tarball in a temporary consumer, verify
+named exports, and compile TypeScript usage against the shipped declarations.
 [CLAUDE.md](CLAUDE.md) contains contributor guidance.
 
 ## License

@@ -7,6 +7,9 @@
  * stoa('singleItem')      // returns ['singleItem']
  * stoa('')                // returns []
  * 
+ * Splits on either bracket and discards empty segments. Malformed notation
+ * is accepted; brackets within keys cannot be escaped.
+ *
  * @param pathInStr - Path string in bracket notation
  * @returns Array of path segments
  */
