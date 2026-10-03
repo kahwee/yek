@@ -1,5 +1,7 @@
 ## v3.0.0 (unreleased)
 
+- Migrate installs, package verification, publishing, and GitHub Actions to pinned pnpm 12.8.1.
+
 - Accept readonly path arrays and document/test lossy empty and bracket-containing segments.
 - Verify the packed package in an isolated runtime and TypeScript consumer before publishing.
 - Update development dependencies, including Vitest 5 and TypeScript 6 (the latest supported by the lint tooling).

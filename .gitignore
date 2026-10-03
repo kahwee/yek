@@ -2,8 +2,8 @@ node_modules
 _mocha.xml
 /coverage
 /dist
-npm-debug.log
 .DS_Store
 *.log
 .vscode
 .idea
+*.tgz

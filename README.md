@@ -6,7 +6,7 @@ TypeScript declarations and no runtime dependencies.
 ## Install
 
 ```sh
-npm install yek
+pnpm add yek
 ```
 
 ## Use
@@ -35,19 +35,20 @@ See the [behavior tests](tests/) for more examples.
 
 ## Development
 
-Use the Node version selected by CI (26) and the committed npm lockfile:
+Use Node 26 and pnpm 12.8.1 (pinned in `package.json`) with the committed
+`pnpm-lock.yaml`:
 
 ```sh
-npm ci
-npm run check
-npm run coverage
-npm run build
+pnpm install --frozen-lockfile
+pnpm run check
+pnpm run coverage
+pnpm run build
 ```
 
 `check` runs types, lint, and tests. Coverage reports statements, functions,
 lines, and branches separately; branch coverage is not 100%.
 
-`build` emits `dist/index.js` and its declaration. Run `npm run test:package`
+`build` emits `dist/index.js` and its declaration. Run `pnpm run test:package`
 after building to pack and install the tarball in a temporary consumer, verify
 named exports, and compile TypeScript usage against the shipped declarations.
 [CLAUDE.md](CLAUDE.md) contains contributor guidance.

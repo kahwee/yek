@@ -6,16 +6,14 @@ import { fileURLToPath } from 'node:url'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const consumer = mkdtempSync(join(tmpdir(), 'yek-package-'))
-const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm'
+const pnpm = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm'
 
 try {
-  const packed = JSON.parse(execFileSync(npm, [
-    'pack', '--json', '--ignore-scripts', '--pack-destination', consumer
-  ], { cwd: root, encoding: 'utf8' }))
+  const tarball = join(consumer, 'yek.tgz')
+  execFileSync(pnpm, ['pack', '--out', tarball], { cwd: root, stdio: 'pipe' })
   writeFileSync(join(consumer, 'package.json'), JSON.stringify({ private: true, type: 'module' }))
-  execFileSync(npm, [
-    'install', join(consumer, packed[0].filename),
-    '--ignore-scripts', '--no-audit', '--no-fund', '--package-lock=false'
+  execFileSync(pnpm, [
+    'add', tarball, '--ignore-scripts', '--lockfile=false'
   ], { cwd: consumer, stdio: 'pipe' })
 
   writeFileSync(join(consumer, 'check.mjs'), `
