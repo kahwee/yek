@@ -1,5 +1,6 @@
 ## v3.0.0 (unreleased)
 
+- Add the MIT `LICENSE` file so the packed package matches the declared license.
 - Migrate installs, package verification, publishing, and GitHub Actions to pinned pnpm 12.8.1.
 
 - Accept readonly path arrays and document/test lossy empty and bracket-containing segments.
