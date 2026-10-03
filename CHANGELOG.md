@@ -4,7 +4,8 @@
 
 - Accept readonly path arrays and document/test lossy empty and bracket-containing segments.
 - Verify the packed package in an isolated runtime and TypeScript consumer before publishing.
-- Update development dependencies, including Vitest 5 and TypeScript 6 (the latest supported by the lint tooling).
+- Update development dependencies, including Vitest 5 and TypeScript 7.
+- Replace ESLint with Biome for linting, formatting, and import checks.
 
 - Emit the declared package entry directly under `dist/` and keep test artifacts out of the build.
 - Verify named package imports after building in CI.

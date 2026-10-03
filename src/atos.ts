@@ -1,17 +1,17 @@
 /**
  * Converts an array of path segments to bracket notation string
- * 
+ *
  * @example
  * atos(['one', 'two', 'three']) // returns 'one[two][three]'
  * atos(['users', '0', 'name'])  // returns 'users[0][name]'
- * 
+ *
  * Empty segments and segments containing brackets do not round-trip through stoa.
  *
  * @param pathInArray - Array of path segments
  * @returns Path string in bracket notation
  * @throws Error if the input array is empty
  */
-export default function atos (pathInArray: readonly string[]): string {
+export default function atos(pathInArray: readonly string[]): string {
   if (pathInArray.length === 0) {
     throw new Error('Input array cannot be empty')
   }

@@ -21,8 +21,8 @@
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\"",
-    "lint:fix": "eslint --fix \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "lint": "biome check src tests",
+    "lint:fix": "biome check --write src tests",
     "check": "pnpm run typecheck && pnpm run lint && pnpm test",
     "prepublishOnly": "pnpm run check && pnpm run build && pnpm run test:package"
   },
@@ -43,15 +43,10 @@
   },
   "homepage": "https://github.com/kahwee/yek",
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
+    "@biomejs/biome": "2.5.15",
     "@types/node": "^26.6.4",
-    "@typescript-eslint/eslint-plugin": "^8.71.0",
-    "@typescript-eslint/parser": "^8.71.0",
     "@vitest/coverage-v8": "^5.0.3",
-    "eslint": "^10.12.0",
-    "globals": "^17.13.0",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.71.0",
+    "typescript": "^7.0.2",
     "vitest": "^5.0.3"
   },
   "packageManager": "pnpm@12.8.1"

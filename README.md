@@ -45,8 +45,10 @@ pnpm run coverage
 pnpm run build
 ```
 
-`check` runs types, lint, and tests. Coverage reports statements, functions,
-lines, and branches separately; branch coverage is not 100%.
+`check` runs types, Biome checks, and tests. `pnpm run lint` checks lint rules,
+formatting, and imports in `src/` and `tests/`; `pnpm run lint:fix` applies fixes.
+Coverage reports statements, functions, lines, and branches separately;
+branch coverage is not 100%.
 
 `build` emits `dist/index.js` and its declaration. Run `pnpm run test:package`
 after building to pack and install the tarball in a temporary consumer, verify
