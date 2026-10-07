@@ -58,3 +58,7 @@ named exports, and compile TypeScript usage against the shipped declarations.
 ## License
 
 MIT
+
+## CI maintenance
+
+[GitHub Actions maintenance](.github/ACTIONS.md) covers workflows, parallel checks, action versions, and weekly updates.
