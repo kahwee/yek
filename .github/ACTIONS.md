@@ -24,7 +24,7 @@ Versions below match the current workflow and composite-action references. SHA-p
 | Action | Reference |
 | --- | --- |
 | [actions/checkout](https://github.com/actions/checkout) | `v7.0.1` |
-| [actions/setup-node](https://github.com/actions/setup-node) | `v7.0.0` |
+| [actions/setup-node](https://github.com/actions/setup-node) | `v7.1.0` |
 | [pnpm/action-setup](https://github.com/pnpm/action-setup) | `v6.1.0` |
 
 ## Greenkeeping
