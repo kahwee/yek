@@ -19,6 +19,12 @@ jobs:
           node-version: 26
           cache: 'pnpm'
           registry-url: https://registry.npmjs.org/
+      - name: Test and validate release metadata
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          node --test scripts/check-release-guard.mjs
+          node scripts/release-check.mjs "$RELEASE_TAG"
       - run: pnpm install --frozen-lockfile
       # Release checkouts are detached from a branch.
       - run: pnpm publish --no-git-checks
