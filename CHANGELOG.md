@@ -1,5 +1,6 @@
 ## v3.0.0 (unreleased)
 
+- Refresh Node.js development types to 26.6.5.
 - Add the MIT `LICENSE` file so the packed package matches the declared license.
 - Migrate installs, package verification, publishing, and GitHub Actions to pinned pnpm 12.8.1.
 
