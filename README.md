@@ -33,6 +33,9 @@ stoa('a[b')              // ['a', 'b']
 
 See the [behavior tests](tests/) for more examples.
 
+Version 3 requires Node.js 22+ and provides named ESM exports only.
+See the [v3 migration guide](docs/migration-v3.md) when upgrading from v2.
+
 ## Development
 
 Use Node 26 and pnpm 12.15.0 (pinned in `package.json`) with the committed

@@ -28,6 +28,16 @@ assert.deepEqual(stoa('a[][b]'), ['a', 'b'])
 `)
   execFileSync(process.execPath, ['check.mjs'], { cwd: consumer, stdio: 'inherit' })
 
+  writeFileSync(join(consumer, 'check.cjs'), `
+const assert = require('node:assert/strict')
+assert.throws(() => require('yek'), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' })
+import('yek').then(({ atos, stoa }) => {
+  assert.equal(atos(['users', '0', 'name']), 'users[0][name]')
+  assert.deepEqual(stoa('users[0][name]'), ['users', '0', 'name'])
+})
+`)
+  execFileSync(process.execPath, ['check.cjs'], { cwd: consumer, stdio: 'inherit' })
+
   writeFileSync(join(consumer, 'check.ts'), `
 import { atos, stoa } from 'yek'
 const parts = ['users', '0', 'name'] as const

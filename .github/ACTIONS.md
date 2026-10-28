@@ -3,7 +3,7 @@
 ## Verification
 
 [`ci.yml`](workflows/ci.yml) runs on pushes and pull requests to `main`, using
-Node 26 and the pnpm version in `package.json`. Frozen installation precedes
+a Node 22/24/26 matrix and the pnpm version in `package.json`. Frozen installation precedes
 parallel type checking, Biome checks, and coverage. All three must pass before
 the build and isolated packed-package consumer test run.
 
