@@ -1,5 +1,9 @@
 ## v3.0.0 (unreleased)
 
+- Refresh Biome to 2.6.3, Vitest and coverage to 5.0.5, and pnpm to 12.15.0.
+- Pin the current stable GitHub Actions to immutable commits and consolidate
+  contributor guidance in `AGENTS.md`.
+
 - Refresh Node.js development types to 26.6.5.
 - Add the MIT `LICENSE` file so the packed package matches the declared license.
 - Migrate installs, package verification, publishing, and GitHub Actions to pinned pnpm 12.8.1.

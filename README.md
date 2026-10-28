@@ -35,7 +35,7 @@ See the [behavior tests](tests/) for more examples.
 
 ## Development
 
-Use Node 26 and pnpm 12.8.1 (pinned in `package.json`) with the committed
+Use Node 26 and pnpm 12.15.0 (pinned in `package.json`) with the committed
 `pnpm-lock.yaml`:
 
 ```sh
@@ -53,7 +53,7 @@ branch coverage is not 100%.
 `build` emits `dist/index.js` and its declaration. Run `pnpm run test:package`
 after building to pack and install the tarball in a temporary consumer, verify
 named exports, and compile TypeScript usage against the shipped declarations.
-[CLAUDE.md](CLAUDE.md) contains contributor guidance.
+[AGENTS.md](AGENTS.md) contains contributor guidance.
 
 ## License
 
