@@ -12,7 +12,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "docs/migration-v3.md"
   ],
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json",

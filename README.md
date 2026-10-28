@@ -31,7 +31,7 @@ stoa(atos(['a[b]', 'c'])) // ['a', 'b', 'c']
 stoa('a[b')              // ['a', 'b']
 ```
 
-See the [behavior tests](tests/) for more examples.
+See the [behavior tests](https://github.com/kahwee/yek/tree/main/tests) for more examples.
 
 Version 3 requires Node.js 22+ and provides named ESM exports only.
 See the [v3 migration guide](docs/migration-v3.md) when upgrading from v2.
@@ -56,7 +56,7 @@ branch coverage is not 100%.
 `build` emits `dist/index.js` and its declaration. Run `pnpm run test:package`
 after building to pack and install the tarball in a temporary consumer, verify
 named exports, and compile TypeScript usage against the shipped declarations.
-[AGENTS.md](AGENTS.md) contains contributor guidance.
+[AGENTS.md](https://github.com/kahwee/yek/blob/main/AGENTS.md) contains contributor guidance.
 
 ## License
 
@@ -64,4 +64,4 @@ MIT
 
 ## CI maintenance
 
-[GitHub Actions maintenance](.github/ACTIONS.md) covers workflows, parallel checks, action versions, and weekly updates.
+[GitHub Actions maintenance](https://github.com/kahwee/yek/blob/main/.github/ACTIONS.md) covers workflows, parallel checks, action versions, and weekly updates.

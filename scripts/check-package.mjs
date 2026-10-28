@@ -1,7 +1,8 @@
+import assert from 'node:assert/strict'
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs'
+import { existsSync, mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
@@ -15,6 +16,19 @@ try {
   execFileSync(pnpm, [
     'add', tarball, '--ignore-scripts', '--lockfile=false'
   ], { cwd: consumer, stdio: 'pipe' })
+
+  const installedRoot = join(consumer, 'node_modules', 'yek')
+  const documents = ['README.md', 'docs/migration-v3.md'].map((file) => ({
+    file,
+    contents: readFileSync(join(installedRoot, file), 'utf8')
+  }))
+  for (const { file, contents } of documents) {
+    for (const [, target] of contents.matchAll(/\[[^\]]*\]\(([^\s)]+)\)/g)) {
+      if (target.startsWith('#') || /^[a-z][a-z\d+.-]*:/i.test(target)) continue
+      const destination = resolve(dirname(join(installedRoot, file)), target.split('#')[0])
+      assert.ok(existsSync(destination), `Packed ${file} has a broken local link: ${target}`)
+    }
+  }
 
   writeFileSync(join(consumer, 'check.mjs'), `
 import assert from 'node:assert/strict'
@@ -57,7 +71,7 @@ const wrong: number = atos(parts)
       '--module', module, '--moduleResolution', resolution, 'check.ts'
     ], { cwd: consumer, stdio: 'inherit' })
   }
-  console.log('Packed package runtime exports and TypeScript declarations verified.')
+  console.log('Packed package documentation links, runtime exports, and TypeScript declarations verified.')
 } finally {
   rmSync(consumer, { recursive: true, force: true })
 }
