@@ -18,6 +18,8 @@ try {
   ], { cwd: consumer, stdio: 'pipe' })
 
   const installedRoot = join(consumer, 'node_modules', 'yek')
+  const metadata = JSON.parse(readFileSync(join(installedRoot, 'package.json'), 'utf8'))
+  assert.equal(metadata.engines.node, '>=24')
   const documents = ['README.md', 'docs/migration-v3.md'].map((file) => ({
     file,
     contents: readFileSync(join(installedRoot, file), 'utf8')

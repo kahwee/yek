@@ -2,7 +2,7 @@
 
 - Include the v3 migration guide in the package and verify installed documentation links alongside runtime and type consumers.
 
-- Declare Node.js 22+ for v3, emit ES2022, and verify packed ESM consumers on Node 22, 24, and 26. Document migration from v2 CommonJS usage.
+- Declare Node.js 24+ for v3, emit ES2022, and verify packed ESM consumers on Node 24 and 26. Document migration from v2 CommonJS usage.
 
 - Refresh Biome to 2.6.3, Vitest and coverage to 5.0.5, and pnpm to 12.15.0.
 - Pin the current stable GitHub Actions to immutable commits and consolidate

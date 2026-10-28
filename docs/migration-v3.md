@@ -1,6 +1,6 @@
 # Migrating to v3
 
-Version 3 requires Node.js 22 or newer. It publishes named ESM exports and
+Version 3 requires Node.js 24 or newer. It publishes named ESM exports and
 TypeScript declarations; there is no CommonJS `require()` entry or default export.
 
 ```js
@@ -26,4 +26,4 @@ not round-trip. This is bracket-notation conversion, not a parser for arbitrary
 property expressions.
 
 CI checks source tests, the built package, and isolated installed-package runtime
-and declaration consumers on Node.js 22, 24, and 26. The build emits ES2022.
+and declaration consumers on Node.js 24 and 26. The build emits ES2022.

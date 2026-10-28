@@ -33,7 +33,7 @@ stoa('a[b')              // ['a', 'b']
 
 See the [behavior tests](https://github.com/kahwee/yek/tree/main/tests) for more examples.
 
-Version 3 requires Node.js 22+ and provides named ESM exports only.
+Version 3 requires Node.js 24+ and provides named ESM exports only.
 See the [v3 migration guide](docs/migration-v3.md) when upgrading from v2.
 
 ## Development
