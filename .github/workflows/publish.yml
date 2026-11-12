@@ -7,26 +7,115 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: npm-release-yek
+  cancel-in-progress: false
+
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
+    outputs:
+      archive_sha256: ${{ steps.pack.outputs.sha256 }}
+      should_publish: ${{ steps.registry.outputs.should_publish }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          persist-credentials: false
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 26
           cache: 'pnpm'
-          registry-url: https://registry.npmjs.org/
       - name: Test and validate release metadata
         env:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
-          node --test scripts/check-release-guard.mjs
+          node --test scripts/check-release-guard.mjs scripts/check-active-publisher.mjs
           node scripts/release-check.mjs "$RELEASE_TAG"
       - run: pnpm install --frozen-lockfile
-      # Release checkouts are detached from a branch.
-      - run: pnpm publish --no-git-checks
+      # Run the existing prepublish checks without the npm credential present.
+      - run: pnpm run check && pnpm run build && pnpm run test:package
+      - name: Pack checked bytes and record digest
+        id: pack
+        run: |
+          mkdir -p "$RUNNER_TEMP/release"
+          pnpm pack --out "$RUNNER_TEMP/release/package.tgz"
+          echo "sha256=$(sha256sum "$RUNNER_TEMP/release/package.tgz" | cut -d ' ' -f 1)" >> "$GITHUB_OUTPUT"
+      - name: Check immutable registry identity before publication
+        id: registry
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: node scripts/release-check.mjs "$RELEASE_TAG" --archive-registry "$RUNNER_TEMP/release/package.tgz"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: npm-package
+          path: ${{ runner.temp }}/release/package.tgz
+          if-no-files-found: error
+          retention-days: 7
+
+  # Existing token only; the OIDC proposal remains inactive.
+  publish:
+    needs: build
+    if: needs.build.outputs.should_publish == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      RELEASE_TAG: ${{ github.event.release.tag_name }}
+      EXPECTED_SHA256: ${{ needs.build.outputs.archive_sha256 }}
+    steps:
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26
+          package-manager-cache: false
+          registry-url: https://registry.npmjs.org/
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: npm-package
+          path: ${{ runner.temp }}/release
+      - name: Verify checked archive and fixed publication identity
+        working-directory: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          [[ "$EXPECTED_SHA256" =~ ^[a-f0-9]{64}$ ]]
+          printf '%s  %s\n' "$EXPECTED_SHA256" "$RUNNER_TEMP/release/package.tgz" | sha256sum --check --strict
+          tar -xOf "$RUNNER_TEMP/release/package.tgz" package/package.json > "$RUNNER_TEMP/packed-package.json"
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import {readFileSync} from 'node:fs';
+          const pkg = JSON.parse(readFileSync(process.env.RUNNER_TEMP + '/packed-package.json', 'utf8'));
+          assert.match(process.env.RELEASE_TAG, /^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/);
+          assert.equal(pkg.name, 'yek');
+          assert.equal(process.env.RELEASE_TAG, `v${pkg.version}`);
+          assert.ok(!pkg.private);
+          assert.ok(!Object.hasOwn(pkg, 'publishConfig'));
+          JS
+      - name: Publish checked archive without package hooks
+        working-directory: ${{ runner.temp }}
+        run: npm publish "$RUNNER_TEMP/release/package.tgz" --ignore-scripts --access public --tag latest --registry https://registry.npmjs.org/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  verify:
+    needs: [build, publish]
+    if: always() && needs.build.result == 'success' && (needs.publish.result == 'success' || needs.publish.result == 'skipped')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26
+          package-manager-cache: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: npm-package
+          path: ${{ runner.temp }}/release
+      - name: Verify registry bytes and latest tag
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: node scripts/release-check.mjs "$RELEASE_TAG" --verify-archive "$RUNNER_TEMP/release/package.tgz"
