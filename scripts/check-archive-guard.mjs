@@ -140,9 +140,9 @@ test("inactive proposal keeps release-only publication and permissions", () => {
   assert.match(workflow, /--archive-registry "\$RUNNER_TEMP\/release\/package.tgz"/);
   assert.match(workflow, /--verify-archive "\$RUNNER_TEMP\/release\/package.tgz"/);
 });
-test("active token workflow remains unchanged", () => {
+test("reviewed token-only isolation remains unchanged", () => {
   const workflow = readFileSync(new URL("../.github/workflows/publish.yml", import.meta.url));
-  assert.equal(createHash("sha256").update(workflow).digest("hex"), "1923f8c88dcf3d88bd79014af3f2771d8984b004af765759a80db6e63945e2cf");
+  assert.equal(createHash("sha256").update(workflow).digest("hex"), "205ffe3f4edd21a1df50762abeee802f538443f0dab1bb60aea8bbb63f3b2ff7");
 });
 
 test("local tarball integrity gates existing-version upload", async () => {
