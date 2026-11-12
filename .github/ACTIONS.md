@@ -25,9 +25,18 @@ required checks, and artifact ordering; verify the exact pushed commit in CI.
 ## Publishing boundary
 
 The active [`publish.yml`](workflows/publish.yml) handles published releases,
-validates metadata, and references the existing `NPM_TOKEN` secret. Its presence
-does not establish that registry credentials are configured or working.
+validates metadata, and uses the existing `NPM_TOKEN` secret only in a fresh
+publisher's final npm invocation. Checks, installation and packing run without the
+credential; the publisher checks the exact archive digest and fixed package identity
+before publishing with package hooks disabled. A separate read-only job verifies
+registry integrity, including safe reruns of an identical published archive.
+
+This isolates build code from the token, but release/tag and workflow authors remain
+trusted. A build-provided digest detects transport mismatch, not a compromised
+build. Existing token presence does not establish that registry credentials work.
+No OIDC permission, registry setting or release is introduced by this isolation.
 
 The [OIDC replacement](release-proposals/publish.yml) remains inactive pending
 separate approval. Do not activate it, change registry trust, or publish a release
 solely to test maintenance changes.
+
